@@ -1,5 +1,7 @@
 # See http://help.github.com/ignore-files/ for more about ignoring files.
 
+### Angular ###
+## Angular ##
 # compiled output
 /dist
 /dist-server
@@ -18,12 +20,8 @@
 .settings/
 *.sublime-workspace
 
-# IDE - VSCode
-.vscode/*
-!.vscode/settings.json
-!.vscode/tasks.json
-!.vscode/launch.json
-!.vscode/extensions.json
+# VSCOde
+.vscode
 
 # misc
 /.sass-cache
@@ -42,3 +40,4 @@ testem.log
 # System Files
 .DS_Store
 Thumbs.db
+

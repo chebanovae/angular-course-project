@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import { Recipe } from '../recipe.model';
 
 @Component({
@@ -7,6 +7,8 @@ import { Recipe } from '../recipe.model';
   styleUrls: ['./recipe-list.component.css']
 })
 export class RecipeListComponent implements OnInit {
+  @Output() recipeItemSelected = new EventEmitter<Recipe>();
+
   recipes: Recipe[] = [
     new Recipe('Steak', 'Yummy Steak Dinner', 'https://www.goodfreephotos.com/albums/food/yummy-steak-dinner.jpg'),
     // tslint:disable-next-line:max-line-length
@@ -16,6 +18,11 @@ export class RecipeListComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
+  }
+
+  onRecipeItemSelected(recipe: Recipe) {
+    console.log('About to emit event: RecipeListComponent.onRecipeItemSelected: ' + recipe.name);
+    this.recipeItemSelected.emit(recipe);
   }
 
 }
