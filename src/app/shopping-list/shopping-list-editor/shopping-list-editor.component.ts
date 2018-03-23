@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, ViewChild} from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Ingredient } from '../../shared/model/ingredient.model';
 import { ShoppingListService } from '../shopping-list.service';
 
@@ -13,8 +13,7 @@ export class ShoppingListEditorComponent implements OnInit {
 
   constructor(private shoppingListService: ShoppingListService) { }
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
   onAddItem() {
     const ingName = this.nameInputRef.nativeElement.value;
