@@ -1,24 +1,45 @@
+import {Subject} from 'rxjs/Subject';
+
 import { Ingredient } from '../shared/model/ingredient.model';
-import { EventEmitter } from '@angular/core';
+
 export class ShoppingListService {
-    ingredientsChanged = new EventEmitter<void>();
+  ingredientsChanged = new Subject<Ingredient[]>();
+  startedEditing = new Subject<number>();
 
-    private ingredients: Ingredient[] = [
-        new Ingredient('Apple', 5),
-        new Ingredient('Coconut milk, can', 1)
-    ];
+  private ingredients: Ingredient[] = [
+    new Ingredient('Apple', 5),
+    new Ingredient('Coconut milk, can', 1)
+  ];
 
-    getIngredients() {
-        return this.ingredients.slice();
-    }
+  getIngredients() {
+    return this.ingredients.slice();
+  }
 
-    addIngredient(ingredient: Ingredient) {
-        this.ingredients.push(ingredient);
-        this.ingredientsChanged.emit();
-    }
+  getIngredient(index: number) {
+    return this.ingredients[index];
+  }
 
-    addIngredients(ingredients: Ingredient[]) {
-        this.ingredients.push(...ingredients);
-        this.ingredientsChanged.emit();
-    }
+  addIngredient(ingredient: Ingredient) {
+    this.ingredients.push(ingredient);
+    this.fireIngredientsChanged();
+  }
+
+  addIngredients(ingredients: Ingredient[]) {
+    this.ingredients.push(...ingredients);
+    this.fireIngredientsChanged();
+  }
+
+  updateIngredient(index: number, newIngredient: Ingredient) {
+    this.ingredients[index] = newIngredient;
+    this.fireIngredientsChanged();
+  }
+
+  deleteIngredient(index: number) {
+    this.ingredients.splice(index, 1);
+    this.fireIngredientsChanged();
+  }
+
+  private fireIngredientsChanged() {
+    this.ingredientsChanged.next(this.ingredients.slice());
+  }
 }
