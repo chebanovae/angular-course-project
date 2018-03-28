@@ -1,9 +1,9 @@
 import {Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import { NgForm } from '@angular/forms';
+import {Subscription} from 'rxjs/Subscription';
 
 import { ShoppingListService } from '../shopping-list.service';
 import {Ingredient} from '../../shared/model/ingredient.model';
-import {Subscription} from 'rxjs/Subscription';
 
 @Component({
   selector: 'app-shopping-list-editor',

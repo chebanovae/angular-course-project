@@ -23,7 +23,7 @@
       <ul class="dropdown-menu">
           <li><a (click)="onAddToShoppingList()" style="cursor: pointer;">To Shopping List</a></li>
           <li><a (click)="onRecipeEdit()" style="cursor: pointer;">Edit Recipe</a></li>
-          <li><a style="cursor: pointer;">Delete Recipe</a></li>
+          <li><a (click)="onRecipeDelete()" style="cursor: pointer;">Delete Recipe</a></li>
       </ul>
     </div>
   </div>
@@ -35,7 +35,8 @@
 </div>
 <div class="row">
   <div class="col-xs-12">
-    <ul class="list-group"></ul>
-    <li class="list-groupt-item" *ngFor="let ingr of recipe.ingredients"> {{ ingr.name }} ({{ ingr.amount }})</li>
+    <ul class="list-group">
+      <li class="list-groupt-item" *ngFor="let ingr of recipe.ingredients"> {{ ingr.name }} ({{ ingr.amount }})</li>
+    </ul>
   </div>
 </div>
