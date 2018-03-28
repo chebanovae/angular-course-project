@@ -9,30 +9,17 @@ import { ShoppingListService } from '../shopping-list/shopping-list.service';
 export class RecipeService {
     recipesChanged = new Subject<Recipe[]>();
 
-    private recipes: Recipe[] = [
-        new Recipe(
-          'Steak',
-          'Yummy Steak Dinner',
-          'https://www.goodfreephotos.com/albums/food/yummy-steak-dinner.jpg',
-          [
-              new Ingredient('Meat', 1),
-              new Ingredient('Garlic', 8)]
-        ),
-        new Recipe(
-          'Pasta',
-          'Pasta Carbonara',
-          'https://upload.wikimedia.org/wikipedia/commons/thumb/3/34/Pasta_alla_carbonara.png/800px-Pasta_alla_carbonara.png',
-          [
-              new Ingredient('Pasta', 1),
-              new Ingredient('Cream', 5),
-              new Ingredient('Cheese', 3)
-          ])
-        ];
+    private recipes: Recipe[] = [];
 
     constructor(private slService: ShoppingListService) {}
 
     getRecipes() {
         return this.recipes.slice();
+    }
+
+    setRecipes(recipes: Recipe[]) {
+      this.recipes = recipes;
+      this.recipesChanged.next(this.recipes.slice());
     }
 
     addIngredients(ingredients: Ingredient[]) {

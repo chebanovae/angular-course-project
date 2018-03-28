@@ -17,6 +17,8 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
 import { WelcomeRecipeComponent } from './recipes/welcome-recipe/welcome-recipe.component';
 import { RecipeEditComponent } from './recipes/recipe-edit/recipe-edit.component';
 import { RecipeService } from './recipes/recipe.service';
+import { BackendService } from './shared/backend.service';
+import {HttpModule} from '@angular/http';
 
 @NgModule({
   declarations: [
@@ -37,9 +39,10 @@ import { RecipeService } from './recipes/recipe.service';
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    HttpModule
   ],
-  providers: [ ShoppingListService, RecipeService ],
+  providers: [ ShoppingListService, RecipeService, BackendService ],
   bootstrap: [ AppComponent ]
 })
 export class AppModule { }
