@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Response } from '@angular/http';
 import { BackendService } from '../shared/backend.service';
+import { AuthService } from '../auth/auth.service';
 
 @Component({
   selector: 'app-header',
@@ -8,7 +9,8 @@ import { BackendService } from '../shared/backend.service';
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent {
-  constructor(private bService: BackendService) {}
+  constructor(private bService: BackendService,
+              private authService: AuthService) {}
 
   onSaveData() {
     this.bService.storeRecipes()
@@ -18,5 +20,9 @@ export class HeaderComponent {
 
   onFetchData() {
     this.bService.getRecipes();
+  }
+
+  onLogout() {
+    this.authService.logout();
   }
 }
