@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { Response } from '@angular/http';
 import { BackendService } from '../../shared/backend.service';
 import { AuthService } from '../../auth/auth.service';
 
@@ -14,8 +13,10 @@ export class HeaderComponent {
 
   onSaveData() {
     this.bService.storeRecipes()
-      .subscribe((response: Response) => console.log(response),
-        (error) => console.log(error));
+      .subscribe(
+        (response) => console.log(response),
+        (error) => console.log(error)
+      );
   }
 
   onFetchData() {

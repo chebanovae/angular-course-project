@@ -17,6 +17,7 @@ export class AppComponent implements OnInit {
     projectId: "angular5-recipe-book-4b62b",
     storageBucket: "angular5-recipe-book-4b62b.appspot.com",
     messagingSenderId: "908845165714"
+
   };
   firebase.initializeApp(config);
 

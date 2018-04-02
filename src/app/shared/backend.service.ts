@@ -1,29 +1,24 @@
 import { Injectable } from '@angular/core';
-import { Http, Response } from '@angular/http';
+import { HttpClient, HttpHeaders, HttpParams, HttpRequest } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 import { RecipeService } from '../recipes/recipe.service';
 import {Recipe} from '../recipes/recipe.model';
-import { AuthService } from '../auth/auth.service';
 
 @Injectable()
 export class BackendService {
-  constructor(private http: Http,
-              private recipeService: RecipeService,
-              private authService: AuthService) {}
+  constructor(private httpClient: HttpClient,
+              private recipeService: RecipeService) {}
 
   storeRecipes() {
-    const token = this.authService.getToken();
-
-    return this.http.put('https://angular5-recipe-book-4b62b.firebaseio.com/recipes.json?auth=' + token,
-      this.recipeService.getRecipes());
+    const req = new HttpRequest('PUT', 'https://angular5-recipe-book-4b62b.firebaseio.com/recipes.json',
+    this.recipeService.getRecipes(), { reportProgress: true });
+    return this.httpClient.request(req);
   }
 
   getRecipes() {
-    const token = this.authService.getToken();
-
-    return this.http.get('https://angular5-recipe-book-4b62b.firebaseio.com/recipes.json?auth=' + token)
-      .map((response: Response) => {
-        const recipes = response.json();
+    return this.httpClient.get<Recipe[]>('https://angular5-recipe-book-4b62b.firebaseio.com/recipes.json')
+      .map(recipes => {
+        console.log(recipes);
         for (const rec of recipes) {
           if (!rec['ingredients']) {
             rec['ingredients'] = [];
