@@ -11,22 +11,8 @@ export class ShoppingListService {
     new Ingredient('Coconut milk, can', 1)
   ];
 
-  getIngredients() {
-    return this.ingredients.slice();
-  }
-
   getIngredient(index: number) {
     return this.ingredients[index];
-  }
-
-  addIngredient(ingredient: Ingredient) {
-    this.ingredients.push(ingredient);
-    this.fireIngredientsChanged();
-  }
-
-  addIngredients(ingredients: Ingredient[]) {
-    this.ingredients.push(...ingredients);
-    this.fireIngredientsChanged();
   }
 
   updateIngredient(index: number, newIngredient: Ingredient) {
