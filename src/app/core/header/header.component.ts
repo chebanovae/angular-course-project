@@ -1,15 +1,26 @@
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs/Observable';
+
 import { BackendService } from '../../shared/backend.service';
-import { AuthService } from '../../auth/auth.service';
+import * as fromAuth from '../../auth/store/auth.reducers';
+import * as fromApp from '../../store/app.reducers';
+import * as AuthActions from '../../auth/store/auth.actions';
 
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.css']
 })
-export class HeaderComponent {
+export class HeaderComponent implements OnInit {
+  authState: Observable<fromAuth.State>;
+
   constructor(private bService: BackendService,
-              private authService: AuthService) {}
+              private store: Store<fromApp.AppState>) {}
+
+  ngOnInit() {
+    this.authState = this.store.select('auth');
+  }
 
   onSaveData() {
     this.bService.storeRecipes()
@@ -24,10 +35,8 @@ export class HeaderComponent {
   }
 
   onLogout() {
-    this.authService.logout();
+    console.log('Header component - logout');
+    this.store.dispatch(new AuthActions.Logout());
   }
 
-  isAuthenticated() {
-    return this.authService.isAuthenticated();
-  }
 }
