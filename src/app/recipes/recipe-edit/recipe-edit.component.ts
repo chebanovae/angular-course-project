@@ -1,10 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators, FormArray } from '@angular/forms';
 import {ActivatedRoute, Params, Router} from '@angular/router';
+import { Store } from '@ngrx/store';
+import 'rxjs/add/operator/take';
 
-import { RecipeService } from '../recipe.service';
 import { Recipe } from '../recipe.model';
-
+import * as fromRecipe from '../store/recipe.reducers';
+import * as RecipeActions from '../store/recipe.actions';
 
 @Component({
   selector: 'app-recipe-edit',
@@ -17,9 +19,9 @@ export class RecipeEditComponent implements OnInit {
   editMode = false;
   recipeForm: FormGroup;
 
-  constructor(private recipeService: RecipeService,
-              private route: ActivatedRoute,
-              private router: Router) { }
+  constructor(private route: ActivatedRoute,
+              private router: Router,
+              private store:  Store<fromRecipe.FeatureState>) { }
 
   ngOnInit() {
     this.route.params
@@ -27,17 +29,24 @@ export class RecipeEditComponent implements OnInit {
         (params: Params) => {
           this.id = +params['id'];
           this.editMode = params['id'] != null;
-          this.recipe = this.editMode ? this.recipeService.getRecipe(this.id) : new Recipe('', '', '', []);
-          this.initForm();
-        });
-
+          this.store.select('recipes')
+          .take(1)
+          .subscribe((recipeState: fromRecipe.State) => {
+            this.recipe = this.editMode ? recipeState.recipes[this.id] : new Recipe('', '', '', []);
+            this.initForm();
+          });
+      });
   }
 
   onSubmit() {
     if (this.editMode) {
-      this.recipeService.updateRecipe(this.id, this.recipeForm.value);
+      console.log( this.recipeForm.value['name']);
+      this.store.dispatch(new RecipeActions.UpdateRecipe({
+        index: this.id,
+        recipe: this.recipeForm.value
+      }));
     } else {
-      this.recipeService.addRecipe(this.recipeForm.value);
+      this.store.dispatch(new RecipeActions.AddRecipe(this.recipeForm.value));
     }
     this.onCancel();
   }
