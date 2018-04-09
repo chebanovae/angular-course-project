@@ -1,14 +1,12 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
+
 import { HeaderComponent } from './header/header.component';
 import { HomeComponent } from './home/home.component';
 import { AppRoutingModule } from '../app-routing.module';
 import { SharedModule } from '../shared/shared.module';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
-
-import { RecipeService } from '../recipes/recipe.service';
-import { BackendService } from '../shared/backend.service';
 import { AuthInterceptor } from '../shared/auth.interceptor';
 import { LoggingInterceptor } from '../shared/logging.interceptor';
 
@@ -28,8 +26,6 @@ import { LoggingInterceptor } from '../shared/logging.interceptor';
         HeaderComponent
     ],
     providers: [
-        RecipeService,
-        BackendService,
         { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
         { provide: HTTP_INTERCEPTORS, useClass: LoggingInterceptor, multi: true }
     ],

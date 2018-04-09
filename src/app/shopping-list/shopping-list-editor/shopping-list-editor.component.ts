@@ -3,11 +3,10 @@ import { NgForm } from '@angular/forms';
 import { Subscription } from 'rxjs/Subscription';
 import { Store } from '@ngrx/store';
 
-import {Ingredient} from '../../shared/model/ingredient.model';
-import * as ShoppingListActions from '../store/shopping-list.actions';
-// import * as fromShoppingList from '../store/shopping-list.reducers';
-import * as fromApp from '../../store/app.reducers';
 
+import * as ShoppingListActions from '../store/shopping-list.actions';
+import * as fromApp from '../../store/app.reducers';
+import { Ingredient } from '../../shared/model/ingredient.model';
 @Component({
   selector: 'app-shopping-list-editor',
   templateUrl: './shopping-list-editor.component.html',
