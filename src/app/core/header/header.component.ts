@@ -35,7 +35,6 @@ export class HeaderComponent implements OnInit {
   }
 
   onLogout() {
-    console.log('Header component - logout');
     this.store.dispatch(new AuthActions.Logout());
   }
 
