@@ -16,10 +16,12 @@ import { ShoppingListModule } from './shopping-list/shopping-list.module';
 import { reducers } from './store/app.reducers';
 import { EffectsModule } from '@ngrx/effects';
 import { AuthEffects } from './auth/store/auth.effects';
+import { UserComponent } from './user/user.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    UserComponent
     ],
   imports: [
     BrowserModule,
