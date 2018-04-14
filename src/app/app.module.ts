@@ -24,7 +24,7 @@ import { UserComponent } from './user/user.component';
     UserComponent
     ],
   imports: [
-    BrowserModule,
+    BrowserModule.withServerTransition({appId: 'taranka-app'}),
     HttpClientModule,
     AppRoutingModule,
     SharedModule,
